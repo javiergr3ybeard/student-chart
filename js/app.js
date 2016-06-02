@@ -1,44 +1,17 @@
-$(document).foundation();
+$(document).foundation()
 
-var app = {
 
-  init: function() {
-    var myForm = document.querySelector('form');
-    myForm.onsubmit = this.addValuesToDetails;
-  },
+var myForm = document.querySelector('form');
+myForm.onsubmit = function(ev) {
+  ev.preventDefault();
+  var details = document.querySelector('div.details');
 
-  function killStudent() {
-    var elem = document.getElementById('promote');
-    elem.parentNode.removeChild(elem);
-    return false;
-  },
+  var studentName = this.studentName.value;
 
-  buildList: function(listValues) {
-    var dl = document.createElement('dl');
-    //dl.style.border = '1px solid blue';
-    dl.innerHTML = this.buildListItem('Student Name', listValues.studentName);
 
-    return dl;
-  },
-
-  buildListItem: function(term, definition) {
-    var li = ' \
-      <li> \
-        <dt>' + term + '</dt> \
-        <dd>' + definition + '</dd> \
-      </li>';
-    return li;
-  },
-
-  addValuesToDetails: function(ev) {
-    ev.preventDefault();
-    var details = document.querySelector('div.details');
-
-    var listValues = {
-      studentName: this.studentName.value,
-    };
-
-    details.appendChild(app.buildList(listValues));
-  }
+  details.innerHTML += ' \
+    <dl> \
+      <dt>Student Name</dt> \
+      <dd>' + studentName + '</dd> \
+    </dl>';
 };
-app.init();
